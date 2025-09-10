@@ -1,3 +1,5 @@
+import "../styles/SearchBox.css";
+
 interface Props {
   query: string;
   setQuery: (q: string) => void;
@@ -5,13 +7,14 @@ interface Props {
 
 export default function SearchBox({ query, setQuery }: Props) {
   return (
-    <input
-      type="text"
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-      placeholder="Search movies..."
-      className="border rounded p-2 w-full"
-    />
+    <div className="search-container">
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="🔍 Search movies..."
+        className="search-input"
+      />
+    </div>
   );
 }
-
