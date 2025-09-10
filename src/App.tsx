@@ -16,39 +16,42 @@ function App() {
 
   
 
-  useEffect(() => {
-    if (!query) return;
+  const API_KEY = "46bdbe2b";
 
-    const controller = new AbortController();
+useEffect(() => {
+  if (!query) return;
 
-    async function fetchMovies() {
-      try {
-        setLoading(true);
-        setError("");
-        const res = await fetch(
-          `http://www.omdbapi.com/?i=tt3896198&apikey=46bdbe2b&s=${encodeURIComponent(query)}`,
-          { signal: controller.signal }
-        );
-        const data = await res.json();
+  const controller = new AbortController();
 
-        if (data.Response === "False") {
-          setError(data.Error);
-          setMovies([]);
-        } else {
-          setMovies(data.Search);
-        }
-      } catch (err) {
-        if (err instanceof DOMException && err.name === "AbortError") return;
-        setError("Failed to fetch movies");
-      } finally {
-        setLoading(false);
+  async function fetchMovies() {
+    try {
+      setLoading(true);
+      setError("");
+      const res = await fetch(
+        `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`,
+        { signal: controller.signal }
+      );
+      const data = await res.json();
+
+      if (data.Response === "False") {
+        setError(data.Error);
+        setMovies([]);
+      } else {
+        setMovies(data.Search);
       }
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      setError("Failed to fetch movies");
+    } finally {
+      setLoading(false);
     }
+  }
 
-    fetchMovies();
+  fetchMovies();
 
-    return () => controller.abort();
-  }, [query]);
+  return () => controller.abort();
+}, [query]);
+
 
   return (
     <div className="app-container">
