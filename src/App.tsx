@@ -14,7 +14,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  
+  const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
   useEffect(() => {
     if (!query) return;
