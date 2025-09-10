@@ -14,7 +14,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const API_KEY = "46bdbe2b";
+  
 
   useEffect(() => {
     if (!query) return;
